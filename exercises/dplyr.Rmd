@@ -1,0 +1,128 @@
+---
+title: "dplyr exercises"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+x <- 1
+y <- 2
+x+y
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```{r}
+require(tidyverse)
+```
+
+
+### Exercise 0
+
+Use `glimpse()` and/or `print()` to see a quick overview of the `mpg` data.
+
+```{r}
+```
+
+
+### Exercise 1
+
+Print out the `class` column using the `select()` function. 
+
+Try using the `pull()` function instead of select to see what the difference is.
+
+```{r}
+```
+
+
+
+### Exercise 2
+
+Print out all but the `class`  column using the `select()` function.
+
+```{r}
+```
+
+### Exercise 3
+
+Print out the `manufacturer`, `model`, `displ`, `year`  columns. 
+
+Consider using the colon `:` symbol to simplify selection of consecutive columns.
+
+```{r}
+```
+
+
+### Exercise 4
+
+Create the object `mycars` containing the columns `manufacturer`,  `model`, `displ` , `cty` and `hwy` but let the last two column names be `city_miles_per_gallon` and `highway_miles_per_gallon` respectively
+
+```{r}
+```
+
+
+### Exercise 5
+
+Create two new variables in the `mycars` data frame `city_km_per_litre` and `highway_km_per_litre` using the `mutate()` function. 
+Hint: 1 mpg is 0.425 kml.
+
+```{r}
+```
+
+
+### Exercise 6
+
+Randomly select and print half the observations of `mpg`. Hint: consider using the `sample_frac()` function
+
+```{r}
+```
+
+
+### Exercise 7
+
+Print out from `mpg` rows from 10th to 15th. 
+Hint: consider using the `slice()` function.
+
+```{r}
+```
+
+
+### Exercise 8
+
+Print out the `mpg` all distinct `manufacturer`.  Hint: Consider using the `distinct()` function.
+
+```{r}
+```
+
+
+### Exercise 9
+
+Print out from `mpg` object all the observations which have `cty` > 21 and manufacturer either `audi` or `jeep`
+
+```{r}
+```
+
+
+### Exercise 10
+Compute the average `cty` by `manufacturer`
+
+```{r}
+```
+
+
+### Exercise 11
+Compute the average `hwy` by `manufacturer` only for cars of class `compact` 
+
+```{r}
+```
+
+
+
+

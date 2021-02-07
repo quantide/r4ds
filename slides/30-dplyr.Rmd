@@ -29,6 +29,11 @@ knitr::opts_chunk$set(echo = TRUE)
 * Provides simple "verbs", functions that correspond to the most common data manipulation tasks
 * Uses efficient data storage back-ends
 
+Resources
+
+* https://stat545.com/
+* https://r4ds.had.co.nz/transform.html
+
 ## Load Tidyverse 
 
 Do not forger to load `tidyverse` and set `options()`

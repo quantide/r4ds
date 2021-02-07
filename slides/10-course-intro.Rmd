@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <p class="forceBreak"></p>
 
-## Data Manipulation {.columns-2 .smaller}
+## R4ds {.columns-2 .smaller}
 ![](./images/flow.png){width=75%}
 
 <p class="forceBreak"></p>

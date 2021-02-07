@@ -111,6 +111,7 @@ Print out from `mpg` object all the observations which have `cty` > 21 and manuf
 
 
 ### Exercise 10
+
 Compute the average `cty` by `manufacturer`
 
 ```{r}

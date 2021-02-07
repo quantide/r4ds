@@ -1,0 +1,255 @@
+---
+title: "2T manipulation"
+output: ioslides_presentation
+   
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Load Tidyverse 
+
+Do not forger to load `tidyverse` and set `options()`
+
+```{r, message = FALSE}
+require(tidyverse )
+options(tibble.print_max = 5, tibble.print_min = 5)
+```
+
+
+# Mutating Join
+
+
+## The Basic
+
+Mutating joins allow you to combine variables from multiple tables.  
+
+There are four types of mutating join, which differ in their behavior when a match is not found: 
+
+* `inner_join(x, y)`
+* `left_join(x, y)`
+* `right_join(x, y)`
+* `full_join(x, y)`
+
+## Simple Example 
+
+```{r}
+d_1 <- tibble(id = 1:4, x1 = c('a', 'b', 'c', 'd'))
+d_2 <- tibble(id = 3:5, x2 = c('c', 'd',  'e'))
+```
+
+## inner join
+
+* `inner_join(x, y)` only includes observations that match in both x and y:
+
+```{r}
+inner_join(d_1, d_2)
+```
+
+
+## left join 
+
+* `left_join(x, y)` includes all observations in `x`, regardless of whether they match or not. 
+
+This is the most commonly used join because it ensures that you don’t lose observations from your primary table:
+
+```{r}
+left_join(d_1, d_2)
+```
+
+## right join 
+
+* `right_join(x, y)` includes all observations in `y`. It’s equivalent to `left_join(y, x)`, but the columns will be ordered differently:
+
+```{r}
+right_join(d_1, d_2)
+```
+
+## full join 
+
+* `full_join()` includes all observations from `x` and `y`:
+
+```{r}
+full_join(d_1, d_2)
+```
+
+
+# The Italian Example
+
+## regioni
+
+```{r}
+load('./data/regioni.RData')
+glimpse (regioni, width = 60)
+```
+
+
+## province
+
+```{r}
+load('./data/province.RData')
+glimpse (province, width = 60)
+```
+
+## comuni
+
+```{r}
+load('./data/comuni.RData')
+glimpse (comuni, width = 60)
+```
+
+## basic join 
+
+```{r}
+italia <- comuni %>% 
+  left_join(province, by = 'cod_provincia') %>% 
+  left_join(regioni, by = 'cod_regione') 
+italia
+```
+
+## Example
+
+Legal population by regioni sort by descending population 
+
+```{r}
+  regioni %>%
+  left_join(comuni, by = 'cod_regione') %>%
+  group_by(regione) %>%
+  summarise(pop_legale = sum(pop_legale, na.rm = T), 
+            .groups = 'drop') %>%
+  arrange(- pop_legale)
+```
+
+Note: na.rm = T
+
+
+
+# Filtering Joins
+
+## the basic 
+
+Filtering joins match observations in the same way as mutating joins, but affect observations rather than variables. 
+
+* `semi_join(x, y)` keeps all observations in `x` that have a match in `y`;
+* `anti_join(x, y)` drops all observations in `x` that have a match in `y`.
+
+
+
+## Simple Example 
+
+```{r}
+d_1 <- tibble(id = 1:4, x1 = c('a', 'b', 'c', 'd'))
+d_2 <- tibble(id = 3:5, x2 = c('c', 'd',  'e'))
+```
+
+
+All observations in `d_1` and `d_2`
+
+```{r}
+d_1 %>% semi_join(d_2)
+```
+
+All observations in `d_1` not in `d_2`
+
+```{r}
+d_1 %>% anti_join(d_2)
+```
+
+
+## Tennis Example
+
+Data `wimbledon` and `usopen` contain the following variables:
+
+* year
+* champion_country
+* champion
+* runner up country
+* runner up
+
+
+## us open 
+
+```{r}
+usopen <- read_rds('./data/usopen.rds')
+```
+
+
+## wimbledon 
+
+```{r}
+wimbledon <- read_rds('./data/wimbledon.rds')
+```
+
+## acrylic hard courts
+
+who won the US open and never won Wimbledon
+
+```{r}
+usopen %>% 
+  anti_join(wimbledon, by = "champion") %>%
+  select(year, champion_country, champion)
+```
+
+## international 
+
+who won both the US open and Wimbledon
+
+```{r}
+usopen %>% 
+  semi_join(wimbledon, by = "champion") %>%
+  select(year, champion_country, champion)
+```
+
+
+## performance
+
+who won both the US open and Wimbledon in the same year
+
+
+```{r}
+usopen %>% 
+  semi_join(wimbledon, by = c("champion", "year")) %>%
+  select(year, champion_country, champion) 
+```
+
+## top performance
+
+who won both the US open and Wimbledon more than once
+
+```{r}
+# who won the US open more than once
+super_usopen <- usopen %>% 
+  group_by(champion) %>%
+  summarise (n_us = n(), .groups = 'drop') %>%
+  filter(n_us > 1)
+
+# who won Wimbledon more than once
+super_wimbledon <- wimbledon %>% 
+  group_by(champion) %>%
+  summarise (n_wb = n(), .groups = 'drop') %>%
+  filter(n_wb > 1)
+
+# semi join
+super_usopen %>% 
+  semi_join(super_wimbledon, by = "champion") %>%
+  select(champion)
+```
+
+
+## best player 
+
+who was the best player in the two slams:
+
+```{r}
+super_usopen %>% 
+  inner_join(super_wimbledon, by = "champion") %>%
+  mutate ( n = n_us+n_wb) %>%
+  arrange(desc(n))
+```
+ 
+
+

@@ -1,0 +1,25 @@
+---
+title: "R4ds"
+output: ioslides_presentation
+   
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<p class="forceBreak"></p>
+
+## Data Manipulation {.columns-2 .smaller}
+![](./images/flow.png){width=75%}
+
+<p class="forceBreak"></p>
+
+* Data Import and Export: `readr` & `readxl`
+* Data Manipulation: `dplyr`
+* Data Visualization: `ggplot2` 
+* Data Analysis
+* Communication with `rmarkdown`
+

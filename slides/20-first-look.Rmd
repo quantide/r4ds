@@ -1,0 +1,122 @@
+---
+title: "First Look"
+output: ioslides_presentation
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<p class="forceBreak"></p>
+
+## The First R Session
+
+
+```{r, calculator}
+6 + 3
+5 - 9
+4 * 6
+8 / 3
+5 ^ 2
+(1 + 0.05)^8
+exp(3)
+log(14)
+23.76 * log(8)/(23 + atan(9))
+```
+
+
+## assignment
+
+Results of calculations can be stored in objects using the assignment operators:
+  
+ - an arrow (`<-`) formed by a smaller than character and a hyphen without a space;
+ - the equal character (`=`).
+
+These objects can then be used in other calculations. 
+
+There are some restrictions when giving an object a name:
+  
+ - Object names cannot contain "strange" symbols like `!`, `+`, `-`, `#`.
+ - A dot (`.`) and an underscore (`_`) are allowed, also a name starting with a dot.
+ - Object names can contain a number but cannot start with a number.
+ - R is case sensitive: `X` and `x` are two different objects, as well as `temp` and `temP`.
+
+
+## assignment
+
+```{r, assignment}
+x <- log(14)
+y <- 23.76 * log(8)/(23 + atan(9))
+z <- x + y
+```
+
+## print 
+
+To print the object just enter the name of the object or use `print()` function. 
+
+```{r, print_obj}
+x
+y
+print(z)
+```
+
+
+## Objects listing
+
+Objects created during an R session are hold in your _worspace_ memory. 
+
+`ls()` lists objects
+
+```{r, workspace}
+ls()
+ls(pattern = 'x')
+```
+
+
+## Removing objects
+
+If a value to an object that already exists is assigned then the contents of the object will be overwritten with the new value (without a warning!). The function `rm()` ought be used to remove one or more objects from your session.
+
+```{r, rm}
+friz <- 0
+ls()
+rm(friz)
+ls()
+```
+
+## Garbage collection
+
+When objects are no longer used, and this clearly happens when objects are deleted, `R` releases immediately the memory they filled in the system. This is done automatically by the garbage collector `gc()`.
+
+We can call `gc()` also to see how much memory `R` is using for allocating objects
+
+```{r howRworks-029}
+gc()
+```
+
+
+## R help
+
+```{r, help1, eval=FALSE}
+help(mean)
+?sd
+```
+
+## R help 
+
+list of functions concerning `mean`
+
+```{r, help.search1, eval=FALSE}
+help.search("mean")
+```
+
+## R help
+
+list of function containing "mean" in the name 
+
+```{r, help.search2, eval=FALSE}
+apropos("mean")
+```
+

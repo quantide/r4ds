@@ -1,0 +1,67 @@
+Day (1) 
+Intro 
+Project
+console
+Script
+Graph
+Packages
+First Rmd
+(EX) UN Votes
+
+Day (2) 
+Pipe
+Tibble
+Select 
+Filter 
+
+Day (3)
+Arrange
+Mutate
+Summarise
+Group_by 
+
+Day (4)  
+Join
+full 
+left
+right 
+cross (expand_grid) 
+semi 
+anti 
+
+
+Day(5) 
+Missing data 
+NuLL data
+dates with lubridate
+
+
+Day( 6)
+ggplot base
+
+
+Day( 67
+ggplot Other Graph
+
+Day (8) 
+Intro to models
+
+i
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+includes:
+    in_header: ../include/html/in-header.html
+    before_body: ../include/html/before-body.html
+    after_body: ../include/html/after-body.html
+

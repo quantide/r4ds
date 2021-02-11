@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <p class="forceBreak"></p>
 
 ## R4ds {.columns-2 .smaller}
-![](./images/flow.png){width=75%}
+![](./images/flow.png){width=85%}
 
 <p class="forceBreak"></p>
 
@@ -21,5 +21,5 @@ knitr::opts_chunk$set(echo = TRUE)
 * Data Manipulation: `dplyr`
 * Data Visualization: `ggplot2` 
 * Data Analysis
-* Communication with `rmarkdown`
+* Information with `rmarkdown`
 

@@ -100,12 +100,12 @@ mpg %>% head(n=2)
 
 `dplyr` functions  allow you to solve the vast majority of data manipulation challenges
 
-`dplyr` is made of five key functions
+`dplyr` is made of five key verbs
 
 * Pick observations by their values `filter()`
 * Reorder the rows `arrange()`
 * Pick variables by their names `select()`.
-* Create new variables with functions of existing variables `mutate()`
+* Create new variables as functions of existing variables `mutate()`
 * Collapse many values down to a single summary `summarise()`
 
 These can all be used in conjunction with `group_by()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. 
@@ -193,9 +193,14 @@ mpg %>%  select ( -class)
 Remove more than one variable 
 
 ```{r}
-mpg %>%  select (- c(year, class)) 
+mpg %>%  select (-year, -class) 
 ```
 
+alternatively: 
+
+```{r, eval = F}
+mpg %>%  select (- c(year, class))
+```
 
 ## select 
 

@@ -70,14 +70,14 @@ Height vs Weight of Italian people by area
 
 
 ```{r complete_plot, echo=FALSE, message=F, warning=F, fig.width = 6}
-ggplot(people, aes(x = Weight, y = Height, colour = Area)) +
+ggplot(people, aes(x =  Height, y = Weight,  colour = Area)) +
   geom_point() +
   stat_smooth(method = "lm", se = F) +
   scale_colour_brewer(palette="Set1") +
   facet_grid(. ~ Area) +
   ggtitle("weight vs height of \n italian people by geographical area") + 
-    xlab("Weight (kg)") +
-    ylab("Height (cm)") +
+    ylab("Weight (kg)") +
+    xlab("Height (cm)") +
   theme_bw() + 
   theme(
     axis.line.x = element_line(colour = "black"),

@@ -174,14 +174,14 @@ Data `wimbledon` and `usopen` contain the following variables:
 ## us open 
 
 ```{r}
-usopen <- read_rds('./data/usopen.rds')
+load('./data/usopen.RData')
 ```
 
 
 ## wimbledon 
 
 ```{r}
-wimbledon <- read_rds('./data/wimbledon.rds')
+load('./data/wimbledon.RData')
 ```
 
 ## acrylic hard courts

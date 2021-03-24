@@ -1,0 +1,11 @@
+date_time;component;polymer;measure;value
+09/06/2020 12:49:53;VX4;Regular;ticknes;2.42
+09/06/2020 8:19:46;VX4;Regular;ticknes;2.42
+09/07/2020 12:34:21;VX4;Regular;ticknes;2.42
+09/07/2020 8:16:31;VX4;Regular;ticknes;2.42
+09/08/2020 12:29:01;VX4;Regular;ticknes;2.42
+09/08/2020 8:41:42;VX4;Regular;ticknes;2.42
+09/09/2020 12:18:32;VX4;Regular;ticknes;2.42
+09/09/2020 8:04:03;VX4;Regular;ticknes;2.42
+09/10/2020 12:29:46;VX4;Regular;ticknes;2.42
+09/10/2020 7:43:31;VX4;Regular;ticknes;2.42

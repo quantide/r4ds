@@ -61,6 +61,67 @@ Data Sources
 
 # Text files
 
+
+## Tabular files
+
+Importing text files is usually about importing rectangular data structure where:
+
+* each row is an observation 
+* each column a variable 
+* variables are separated by a delimiter: `[, ; \t etc]`
+* first row usually containing variable names. 
+
+```
+manufacturer;model;displ;year;cyl;trans;drv;cty;hwy;fl;class;
+audi;a4;1.8;1999;4;auto(l5);f;18;29;p;compact
+audi;a4;1.8;1999;4;manual(m5);f;21;29;p;compact
+audi;a4;2;2008;4;manual(m6);f;20;31;p;compact
+```
+
+More complex text files structures exist: fixed width or even more compact layouts but, hopefully, you'll never meet them
+
+## Extensions 
+
+A text file is usually identified by a conventional extension: [`.txt` `.csv`]. 
+
+Extensions are just conventions. 
+
+Changing the extension does not change the file content. Windows associates extensions with specific software:
+
+* `.xlsx` => Excel
+* `.csv` => Excel 
+* `.txt` => Notepad 
+
+Nevertheless, `.csv` are text files.
+
+
+
+
+
+
+
+
+
+## Be smart 
+
+__Be consistent:__
+
+* in your files formats
+* in your files naming convention
+* in your columns naming convention
+
+__Avoid:__
+
+* blanks in file names and colums names
+* capital letters in file names 
+* special character in file names except `-` and `_` 
+* special character in column names except and `_` 
+* no UTF8 characters everywhere
+* single quotes and double quotes everywhere
+
+
+
+
 ## read_delim 
 
 ![](./images/import-text.png){width=50%}
@@ -91,7 +152,7 @@ C:/user/oscar/data/file.txt
 ./file.txt
 ```
 
-Note the use of forward slash `/`. On Windows doubel back slash `\\` also works 
+Note the use of forward slash `/`. On Windows double back slash `\\` also works 
 
 Delim can be anything like: `,` `;` `|` etc ...
 
@@ -124,6 +185,45 @@ polymer <- read_delim ( file = './data/polymer.txt' ,
 Note `date_time` column as character 
 
 
+## column type specification 
+
+Auto import first
+
+```{r}
+polymer <- read_delim ( file = './data/polymer.txt' ,
+                        delim = ';',
+                        col_types = cols(), 
+                        n_max = 10)
+```
+
+Check columns specifications  
+
+```{r}
+spec(polymer)
+```
+
+
+
+
+##   column type specification {.smaller}
+
+The available specifications are: (with string abbreviations in brackets)
+
+* `col_logical() [l]`: containing only T, F, TRUE or FALSE.
+* `col_integer() [i]`: integers.
+* `col_double() [d]`: doubles.
+* `col_character() [c]`: everything else.
+* `col_factor(levels, ordered) [f]`: a fixed set of values.
+* `col_date(format = "") [D]`: with the locale's date_format.
+* `col_time(format = "") [t]`: with the locale's time_format.
+* `col_datetime(format = "") [T]`: ISO8601 date times
+* `col_number() [n]`: numbers containing the grouping_mark
+* `col_skip() [_, -]`: don't import this column.
+* `col_guess() [?]`: parse using the "best" type based on the input.
+
+
+
+
 ## column name specification 
 
 Columns names can be specified in advance; note `skip = 1`
@@ -138,22 +238,6 @@ polymer <- read_delim ( file = './data/polymer.txt' ,
 ```
 
 
-## Be smart 
-
-__Be consistent:__
-
-* in your files formats
-* in your files naming convention
-* in your columns naming convention
-
-__Avoid:__
-
-* blanks in file names and colums names
-* capital letters in file names 
-* special character in file names except `-` and `_` 
-* special character in column names except and `_` 
-* no UTF8 characters everywhere
-* single quotes and double quotes everywhere
 
 
 # Excel files

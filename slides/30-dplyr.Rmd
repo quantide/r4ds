@@ -6,7 +6,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -346,6 +346,97 @@ Use `filter()` dynamically
 
 ```{r}
 mpg %>% filter(displ  >= quantile(displ, .99))
+```
+
+
+
+
+# Mutate
+
+## mutate
+
+* `mutate()` allows you create new columns or transform an existing column 
+* `mutate()` is a `dplyr` function. 
+* `dplyr` is part of `tidyverse`
+
+
+![](images/mut.png) 
+
+The first argument is the name of the data frame, followed by a list of mutating operations 
+
+
+## Load Tidyverse 
+
+Do not forger to load `tidyverse` and set `options()`
+
+```{r,  message = FALSE}
+require(tidyverse )
+```
+
+
+```{r}
+options(tibble.print_max = 5, tibble.print_min = 5)
+```
+
+
+## mutate 
+
+Let's first select a subset of `mpg` for practical reasons 
+
+```{r }
+mpg_2 <- mpg %>%  select(manufacturer,model, cty, hwy )
+mpg_2
+```
+
+## mutate
+
+Define a constant column
+
+```{r}
+mpg_2 %>% mutate(zero = 0)
+```
+
+## mutate
+
+Define a new column as a transformation of itself
+
+```{r}
+mpg_2 %>% mutate(
+  cty_kml =  cty/4.25, 
+  hwy_kml = hwy/4.25   
+)
+```
+
+## mutate
+
+Redefine a column as a transformation of an existing column
+
+```{r}
+mpg_2 %>% mutate(
+  cty =  cty/4.25, 
+  hwy = hwy/4.25   
+)
+```
+
+## mutate
+
+Define a column as a function of other columns
+
+```{r}
+mpg_2 %>% mutate(
+  avg =  0.5*(cty + hwy)
+  )
+```
+
+## mutate
+
+Be smart 
+
+```{r}
+mpg_2 %>% 
+  mutate_at(.vars = vars(cty, hwy), 
+            .funs = function(x) x/4.25)
+
 ```
 
 # arrange

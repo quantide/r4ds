@@ -70,7 +70,8 @@ Height vs Weight of Italian people by area
 
 
 ```{r complete_plot, echo=FALSE, message=F, warning=F, fig.width = 6}
-ggplot(people, aes(x =  Height, y = Weight,  colour = Area)) +
+ggplot(data = people, 
+       mapping  = aes(x =  Height, y = Weight,  colour = Area)) +
   geom_point() +
   stat_smooth(method = "lm", se = F) +
   scale_colour_brewer(palette="Set1") +
@@ -296,7 +297,8 @@ The building block scheme applies to other plot types.
 
 ```{r , fig.width=3, fig.height=3} 
 ggplot(data = people, mapping = aes(x = Area)) + 
-  geom_bar(fill = "royalblue", colour = "darkblue", width = 0.75, alpha = .75) +
+  geom_bar(fill = "royalblue", 
+           colour = "darkblue", width = 0.75, alpha = .75) +
   ylab('Number of people') + xlab('Area') + 
   coord_flip()
 ```

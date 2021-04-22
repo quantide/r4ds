@@ -28,6 +28,7 @@ Do not forger to load `tidyverse` and set `options()`
 ```{r, message = FALSE}
 require(tidyverse )
 require(knitr)
+require(rpart.plot)
 options(tibble.print_max = 5, tibble.print_min = 5)
 ```
 
@@ -74,7 +75,8 @@ drug
 ## Regression - Discover 
 
 ```{r, message=F, warning=F, fig.width = 4, fig.height=3}
-pl <- ggplot(data=drug, mapping = aes(x=dose, y=time)) +
+pl <- ggplot(data=drug, 
+             mapping = aes(x=dose, y=time)) +
   geom_point(color="darkblue", size=2) +
     xlab("dose (mg)") + ylab("reaction time (secs)")
 pl 
@@ -96,6 +98,9 @@ pl
 ```{r}
 fm <- lm(time ~ dose, data = drug)
 summary(fm) 
+
+predict(fm , newdata = data.frame(dose = .5), se = T )
+
 ```
 
 
@@ -211,7 +216,7 @@ budworms
 ```{r, message = F, warn = F, fig.width = 5, fig.height=3}
 ggplot(data = budworms, mapping = aes(x = ldose, y = rate)) +
   geom_point(size=3, colour="darkblue") + 
-  geom_smooth(method = "loess", colour="green",span=1, se = FALSE) +
+  geom_smooth(method = "loess", colour="green",span=.74, se = FALSE) +
   facet_wrap(~sex) 
 ```  
 
@@ -219,7 +224,7 @@ ggplot(data = budworms, mapping = aes(x = ldose, y = rate)) +
 ## Logit 
 
 ```{r,tidy=FALSE}
-fm0 <- glm(SF ~ sex + ldose + sex:ldose, family = binomial(),data = budworms)
+fm0 <- glm(SF ~ sex + ldose + sex:ldose, family = binomial(), data = budworms)
 summary(fm0)$coefficients
 ```
 
@@ -245,9 +250,9 @@ newdata <- newdata %>%
 ## Logit prediction 
 
 ```{r, message = F, warn = F, fig.width = 5, fig.height=4}
-ggplot(data = budworms, mapping = aes(x = ldose, y = rate)) +
+ggplot(data = budworms, mapping = aes(x = 2^ldose, y = rate)) +
   geom_point(size=3, mapping = aes(shape=sex, colour=sex)) + 
-  geom_line(data=newdata, mapping = aes(x = ldose, y = pred, colour=sex)) +
+  geom_line(data=newdata, mapping = aes(x = 2^ldose, y = pred, colour=sex)) +
   theme(legend.position="top")
 ```
 
@@ -266,6 +271,20 @@ iris
 
 ## Classification tree {.smaller}
 
+Descriptive analysis 
+
+```{r}
+GGally::ggpairs(iris, aes(colour = Species, alpha = 0.4))
+```
+
+```{r}
+ggplot(iris) + 
+geom_point(aes(Petal.Length , Petal.Width, color = Species, size = 3)) + 
+geom_vline(xintercept = 2.5   ) + 
+geom_hline(yintercept = 1.75) 
+```
+
+Model
 
 ```{r}
 iris_rp <- rpart(Species ~ ., method = "class", data = iris,
@@ -277,6 +296,8 @@ summary(iris_rp)
 ## Classification tree {.smaller}
 
 ```{r}
+rpart.plot(iris_rp, yesno = 2, extra = 1)
+
 plot(iris_rp, uniform = TRUE, compress = TRUE, margin = 0.2, branch = 0.3)
 text(iris_rp, use.n = TRUE, digits = 3, cex = 0.6)
 ```
